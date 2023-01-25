@@ -1,6 +1,7 @@
 import { getSalesPerClientType } from "../src/helpers/salesDataHelpers";
+import allowCors from "../src/helpers/allowcors";
 
-export default async function handler(request: any, response: any) {
+const handler = async (request: any, response: any) => {
   try {
     response.status(200).json(await getSalesPerClientType());
   }
@@ -9,4 +10,6 @@ export default async function handler(request: any, response: any) {
       err: err
     });
   }
-}
+};
+
+export default allowCors(handler);

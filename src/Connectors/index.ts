@@ -16,4 +16,3 @@ export const migrate = async (data: any) => {
 export const getDriver = () => {
   return mongoRealm;
 };
-

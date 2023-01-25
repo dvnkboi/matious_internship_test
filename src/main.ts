@@ -10,7 +10,7 @@ const parser = new ArgumentParser({
 
 parser.add_argument('-v', '--version', { action: 'version', version });
 parser.add_argument('-m', '--migrate', { help: 'given a CSV file, will migrate all its data to the MONGO REALM database, note that the credentials need to be in the env file' });
-parser.add_argument('-r', '--run', { help: 'given a port, runs the API server for querying the MONGO REALM database' });
+parser.add_argument('-r', '--run', { help: 'given a port, runs the API server for querying the MONGO REALM database', default: 3000, type: 'int' });
 
 const args = parser.parse_args();
 
@@ -22,8 +22,9 @@ const main = async () => {
   }
 
   if (args.run) {
-    app.listen(parseInt(args.run || 3000), () => {
-      console.log('listening on port 3000');
+    const port = parseInt(args.run, 10);
+    app.listen(port, () => {
+      console.log(`listening on port ${port}`);
     });
   }
 
@@ -33,4 +34,7 @@ const main = async () => {
   }
 };
 
-main();
+
+(async () => {
+  await main();
+})();
